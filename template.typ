@@ -125,25 +125,17 @@
 }
 
 #let assignment(
-    班级: [2000级交通工程],
-    学生: [张三],
-    学号: [200012345],
-    发题日期: [2000年3月5日],
-    完成日期: [2001年4月6日],
-    题目: [这是一篇论文题目],
-    目的意义: [
-        #lorem(100)
-
-        阿萨德发卡觉得浪费空间阿萨德立法局
-    ],
-    任务: [#lorem(100)],
-    达成度: [#lorem(100)],
-    时间分配: [
-        - aaa
-        - bbb
-        - ccc
-    ],
-    备注: [#lorem(50)]
+    班级: none,
+    学生: none,
+    学号: none,
+    发题日期: none,
+    完成日期: none,
+    题目: none,
+    目的意义: none,
+    任务: none,
+    达成度: none,
+    时间分配: none,
+    备注: none
 ) = {
     {
         set align(center)
@@ -193,6 +185,31 @@
     pagebreak()
 }
 
+#let abstract(
+    english: false,
+    keywords: none,
+    body: none
+) = {
+    let title = "摘要"
+    let keyword = "关键词："
+
+    if english {
+        title = "Abstract"
+        keyword = "Keywords:"
+    }
+
+    {
+        set align(center)
+        set text(font: 黑体, size: 小二, weight: "bold")
+        [#title]
+        v(1em)
+    }
+    
+    set text(font: 仿宋体, size: 四号)
+    [#text(font: 黑体,keyword)#keywords]
+    pagebreak()
+}
+
 #let thesis(
     title: "此处为论文题目",
     author: "张三",
@@ -200,6 +217,7 @@
     enroll_number: 1800123456,
     subject: "交通工程",
     supervisor: "李四",
+    任务书: none,
     body
 ) = {
     // 基本设置
@@ -229,26 +247,63 @@
     // 授权书
     permission()
 
-    // 页眉开始
     set page(header: [
-        #set text(font: 黑体, size: 小四)
-        #set align(center)
+            #set text(font: 黑体, size: 小四)
+            #set align(center)
 
-        西南交通大学本科毕业设计（论文）
-        #block(height: 0cm,line(length: 100%))
-    ], header-ascent: 0.8cm)
+            西南交通大学本科毕业设计（论文）
+            #block(height: 0cm,line(length: 100%))
+        ],
+        header-ascent: 0.8cm,
+        numbering: "I"
+    )
+    counter(page).update(1)
 
     // 任务书
-    assignment()
+    assignment(..任务书)
     // 中文摘要
+    abstract()
     // 英文摘要
+    abstract(english: true)
     // 目录
+    outline(title: [目录])
 
+    pagebreak()
     // 正文从奇数页开始
     body    
 }
 
 
-#show: thesis.with()
+#let 任务书 = (
+    班级: [2000级交通工程],
+    学生: [张三],
+    学号: [200012345],
+    发题日期: [2000年3月5日],
+    完成日期: [2001年4月6日],
+    题目: [这是一篇论文题目],
+    目的意义: [
+        #lorem(100)
 
-== test
+        阿萨德发卡觉得浪费空间阿萨德立法局
+    ],
+    任务: [#lorem(100)],
+    达成度: [#lorem(100)],
+    时间分配: [
+        - aaa
+        - bbb
+        - ccc
+    ],
+    备注: [我也不知道我在说啥]
+)
+
+#show: thesis.with(任务书: 任务书)
+
+= 绪论
+
+= 文献综述
+
+= 模型设计
+
+= 结果分析
+
+= 结论
