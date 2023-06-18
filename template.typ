@@ -252,9 +252,9 @@
             #set align(center)
 
             西南交通大学本科毕业设计（论文）
-            #block(height: 0cm,line(length: 100%))
+            #block(height: -0.3cm,line(length: 100%))
         ],
-        header-ascent: 0.8cm,
+        header-ascent: 0.7cm,
         numbering: "I"
     )
     counter(page).update(1)
