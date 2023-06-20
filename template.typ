@@ -266,10 +266,70 @@
     // 英文摘要
     abstract(english: true)
     // 目录
-    outline(title: [目录])
+    show outline: elem => {
+        set text(font: 仿宋体)
+        show heading.where(level: 1): elem => {
+            set align(center)
+            set text(font: 黑体)
+            elem
+            v(2em)
+        }
+        grid(columns: (10%, 80%, 10%),
+        [],
+        elem,
+        []
+        )
+    }
+    //show outline.entry.where(level: 1): it => {
+    //    it
+    //}
+    outline(title: [目录], indent: n => {
+        if n >= 2 {
+            1em
+        } else {
+            0em
+        }
+    })
 
-    pagebreak()
+    //pagebreak(weak: true)
+    set page(numbering: "1")
+    counter(page).update(1)
+
     // 正文从奇数页开始
+
+    set heading(level: 3, numbering: "1.1")
+    
+    show heading.where(level: 1): elem => {
+        //pagebreak(weak: true)
+        set align(center)
+        locate(loc => {
+            let idx = counter(heading).at(loc)
+            v(0.5em)
+            numbering("第 1 章", ..idx)
+            box(width: 1em)
+            elem.body
+            v(1em)
+        })
+    }
+
+    show heading.where(level: 2): elem => {
+        v(0.5em)
+        elem
+        v(1em)
+    }
+    show heading.where(level: 3): elem => {
+        v(0.5em)
+        elem
+        v(0.5em)
+    }
+
+    show heading: elem => {
+        let sizes = (小二, 小三, 四号)
+        set text(font: 黑体, size: sizes.at(elem.level - 1), weight: "regular")
+
+        elem
+    }
+
     body    
 }
 
@@ -299,7 +359,25 @@
 #show: thesis.with(任务书: 任务书)
 
 = 绪论
+阿里放假啊六块腹肌啊离开的肌肤里卡减肥打卡老地方见啊#lorem(30)l
 
+发了十几块大#lorem(30)理石快点放假啊
+== 背景
+asasdf阿拉山口大家发来的#lorem(30)
+
+fasfasdfa
+== 问题
+啊老地方见啊来的积分#lorem(30)
+
+asfasd
+
+啊老地方见啊来的积分#lorem(30)
+=== 子问题
+#box(width: 2em)a的激发了大家发了对方#lorem(30)啦开始戴假发可怜的积分啦。
+
+a的激发了大家发了对方#lorem(30)啦开始戴假发可怜的积分啦。
+
+#pagebreak()
 = 文献综述
 
 = 模型设计
