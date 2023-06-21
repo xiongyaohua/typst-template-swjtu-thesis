@@ -402,8 +402,83 @@
         )
     })
 
-    outline()
+
+    // 判断是否还在正文
+    let in_mainbody(loc) = {
+        // "结论"之后不属于正文
+        let headings = query(heading.where(level: 1).before(loc), loc)
+        let headings = headings.map(heading => heading.body)
+        [结论] not in headings
+    }
+
+    // 手工生成目录
+    let make_outline() = {
+        align(center, text(
+            font: 字体.黑体, size: 字号.小四,
+            [#v(1em) 目#h(1em)录 #v(2em)]
+        ))
+
+        locate(loc => {
+            let headings = query(heading, loc)
+            let make_item(heading) = {
+                
+            }
+        })
+    }
+    make_outline()
     pagebreak(weak: true)
+    
+    set page(numbering: "第 1 页")
+    counter(page).update(1)
+
+    set heading(numbering: "1.1")
+    
+    show heading.where(level: 1): it => {
+        locate(loc => {
+            let idx = counter(heading).at(loc)
+            
+            // 否则第一章和目录之间多出一个空白页，为什么？
+            if idx.at(0) != 1{
+                pagebreak(weak: true)
+            }
+
+            let number =if in_mainbody(loc) {
+                numbering("第 1 章", idx.at(0))
+            } else {
+                []
+            }
+
+            align(center, text(
+                font: 字体.黑体, size: 字号.小三,
+                [#v(1em) #number #it.body #v(2em)]
+            ))
+
+        })
+    }
+    show heading.where(level: 2): it => {
+        locate(loc => {
+            set par(first-line-indent: 0em)
+            let idx = counter(heading).at(loc)
+            //pagebreak(weak: true)
+            align(left, text(
+                font: 字体.黑体, size: 字号.四号,
+                [#v(1em) #numbering(it.numbering, ..idx) #it.body #v(2em)]
+            ))
+
+        })
+    }
+    show heading.where(level: 3): it => {
+        locate(loc => {
+            set par(first-line-indent: 0em)
+            let idx = counter(heading).at(loc)
+            //pagebreak(weak: true)
+            align(left, text(
+                font: 字体.黑体, size: 字号.小四,
+                [#v(1em) #numbering(it.numbering, ..idx) #it.body #v(2em)]
+            ))
+
+        })
+    }
 
     正文
 }
@@ -458,16 +533,20 @@
 )
 
 = 绪论
-
-asdasdf
-
+#lorem(30)
 == 问题的提出
+#lorem(30)
 == 国内外研究现状
+#lorem(30)
 
 = 可持续发展的城市交通
+#lorem(30)
 == 可持续发展
+#lorem(30)
 === 可持续发展思想的形成
+#lorem(30)
 === 可持续发展的内包含
+#lorem(30)
 
 = 结论
 
