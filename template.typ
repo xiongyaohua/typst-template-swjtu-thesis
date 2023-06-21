@@ -54,7 +54,7 @@
 #set page(paper:"a4", margin: (
     x: 2.6cm, y:2.7cm
 ))
-#set text(font: 字体.宋体, size: 字号.小四)
+#set text(font: 字体.宋体, size: 字号.小四, lang: "zh")
 #set par(leading: 1em, first-line-indent: 2em, justify: true)
 #set underline(offset: 2pt, extent: 1pt)
 
@@ -549,15 +549,46 @@
 #lorem(30)
 == 可持续发展
 #lorem(30)
+- 第一
+- 第二
+- 第三
+
+测试一下编号队列
++ 第一
++ 第二
++ 第三
+
+#figure(
+    rect(width:5cm, height: 4cm)[a,b,c,d],
+    caption: [这是一张图]
+)
+
+测试一下表格
+
+#figure(
+    table(columns:4,
+    [], [], [], []),
+    caption: [这是一张表]
+) <工资表>
+
+这是一个公式
+$ integral_a^b sin(x) \dx $ <积分公式>
 === 可持续发展思想的形成
 #lorem(30)
 === 可持续发展的内包含
 #lorem(30)
+
+@积分公式 告诉我们如何计算面积。@工资表 包含所有人的工资，是
+一片空白。 #lorem(20)
+
+这是一个引用@gu2012lao，这是另外一个引用@chen2001hao。
+接下来是一堆引用#cite("liuxf2006", "wang1999sanwei")。#lorem(30)
 
 = 结论
 
 #heading(outlined: false)[致谢]
 
 #heading(outlined: false)[参考文献]
+#bibliography("reference.bib", style: "ieee")
 
 #heading(outlined: false)[附录]
