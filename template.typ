@@ -412,6 +412,7 @@
     }
 
     // 手工生成目录
+    let outline_state = state("outline", ())
     let make_outline() = {
         align(center, text(
             font: 字体.黑体, size: 字号.小四,
@@ -420,9 +421,35 @@
 
         locate(loc => {
             let headings = query(heading, loc)
-            let make_item(heading) = {
-                
+            let fonts = (
+                字体.黑体,
+                字体.宋体,
+                字体.宋体,
+            )
+            let make_entry(entry) = {
+                let font = fonts.at(entry.level - 1)
+                [
+                    #set text(font: font)
+                    #if entry.level >= 3 {
+                        h(2em)
+                    }
+                    #entry.number
+                    #entry.body
+                    #box(width: 1fr, repeat([.]))
+                    #entry.page
+                    #parbreak()
+                ]
             }
+            grid(columns: (5%, 90%, 5%),
+                [], 
+                [
+                    #set par(first-line-indent: 0em)
+                    #for entry in outline_state.final(loc) {
+                        make_entry(entry)
+                    }
+                ],
+                []
+            )
         })
     }
     make_outline()
@@ -444,6 +471,7 @@
 
             let number =if in_mainbody(loc) {
                 numbering("第 1 章", idx.at(0))
+                h(0.5em)
             } else {
                 []
             }
@@ -453,6 +481,16 @@
                 [#v(1em) #number #it.body #v(2em)]
             ))
 
+            let state = (
+                number: number,
+                body: it.body,
+                page: loc.page(),
+                level: it.level
+            )
+            outline_state.update(current => {
+                current.push(state) 
+                current
+            })
         })
     }
     show heading.where(level: 2): it => {
@@ -460,11 +498,23 @@
             set par(first-line-indent: 0em)
             let idx = counter(heading).at(loc)
             //pagebreak(weak: true)
+            let number = numbering(it.numbering, ..idx)
+            let number = [#number#h(0.5em)]
             align(left, text(
                 font: 字体.黑体, size: 字号.四号,
-                [#v(1em) #numbering(it.numbering, ..idx) #it.body #v(2em)]
+                [#v(1em) #number #it.body #v(2em)]
             ))
 
+            let state = (
+                number: number,
+                body: it.body,
+                page: loc.page(),
+                level: it.level
+            )
+            outline_state.update(current => {
+                current.push(state) 
+                current
+            })
         })
     }
     show heading.where(level: 3): it => {
@@ -472,16 +522,30 @@
             set par(first-line-indent: 0em)
             let idx = counter(heading).at(loc)
             //pagebreak(weak: true)
+            let number = numbering(it.numbering, ..idx)
+            let number = [#number#h(0.5em)]
             align(left, text(
                 font: 字体.黑体, size: 字号.小四,
-                [#v(1em) #numbering(it.numbering, ..idx) #it.body #v(2em)]
+                [#v(1em) #number #it.body #v(2em)]
             ))
 
+            let state = (
+                number: number,
+                body: it.body,
+                page: loc.page(),
+                level: it.level
+            )
+            outline_state.update(current => {
+                current.push(state) 
+                current
+            })
         })
     }
 
     正文
 }
+
+////////////////////////////////////
 
 #show: 论文.with(
     姓名: "王五"
@@ -555,4 +619,3 @@
 = 参考文献
 
 = 附录
-
