@@ -451,7 +451,12 @@
 
             if it.level == 1 [
                 #set text(font: 字体.黑体, size: 字号.小三)
-                #h(1fr) #numbering(custom_numbering, ..idx) #it.body#h(1fr)
+                #h(1fr)
+                #if it.outlined [
+                    #numbering(custom_numbering, ..idx)
+                ]
+                #it.body
+                #h(1fr)
                 #v(1cm)
                 #parbreak()
             ] else if it.level == 2 [
@@ -551,8 +556,8 @@
 
 = 结论
 
-= 致谢
+#heading(outlined: false)[致谢]
 
-= 参考文献
+#heading(outlined: false)[参考文献]
 
-= 附录
+#heading(outlined: false)[附录]
