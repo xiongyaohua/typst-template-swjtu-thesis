@@ -402,89 +402,73 @@
     }
 
     // 生成目录
+    show outline.entry: it => {
+        let font = 字体.宋体
+        if it.level == 1 { font = 字体.黑体 }
+        set text(font: font)
+        it.body
+        box(width: 1fr)[#it.fill]
+        it.page
+    }
     outline(
+        target: heading,
         title: [
             #set text(font: 字体.黑体, size: 字号.小三)
             #h(1fr)
             目#h(1em)录
             #h(1fr)
+            #v(1cm)
         ],
-        depth: 3
+        depth: 3,
+        indent: n => calc.max(n - 1, 0)*2em
     )
     pagebreak(weak: true)
     
-    set page(numbering: "第 1 页")
+    set page(numbering: "1", footer: [
+        #h(1fr)
+        #counter(page).display("第 1 页")
+        #h(1fr)
+    ])
     counter(page).update(1)
 
-    set heading(numbering: "1.1")
-    
-    show heading.where(level: 1): it => {
+    let custom_numbering = (..nums) => {
+        if(nums.pos().len() == 1) [
+            #numbering("第一章", nums.pos().at(0))#h(0.3em)
+        ] else [
+            #nums.pos().map(str).join(".")#h(0.3em)
+        ]
+    }
+
+    set heading(numbering: custom_numbering)
+
+    show heading: it => {
         locate(loc => {
             let idx = counter(heading).at(loc)
             
-            // 否则第一章和目录之间多出一个空白页，为什么？
-            if idx.at(0) != 1{
+            if it.level == 1 and idx.at(0) > 1 {
                 pagebreak(weak: true)
             }
 
-            let number =if in_mainbody(loc) {
-                numbering("第 1 章", idx.at(0))
-                h(0.5em)
-            } else {
-                []
-            }
-
-            align(center, text(
-                font: 字体.黑体, size: 字号.小三,
-                [#v(1em) #number #it.body #v(2em)]
-            ))
-
-            let state = (
-                number: number,
-                body: it.body,
-                page: loc.page(),
-                level: it.level
-            )
-        })
-    }
-    show heading.where(level: 2): it => {
-        locate(loc => {
-            set par(first-line-indent: 0em)
-            let idx = counter(heading).at(loc)
-            //pagebreak(weak: true)
-            let number = numbering(it.numbering, ..idx)
-            let number = [#number#h(0.5em)]
-            align(left, text(
-                font: 字体.黑体, size: 字号.四号,
-                [#v(1em) #number #it.body #v(2em)]
-            ))
-
-            let state = (
-                number: number,
-                body: it.body,
-                page: loc.page(),
-                level: it.level
-            )
-        })
-    }
-    show heading.where(level: 3): it => {
-        locate(loc => {
-            set par(first-line-indent: 0em)
-            let idx = counter(heading).at(loc)
-            //pagebreak(weak: true)
-            let number = numbering(it.numbering, ..idx)
-            let number = [#number#h(0.5em)]
-            align(left, text(
-                font: 字体.黑体, size: 字号.小四,
-                [#v(1em) #number #it.body #v(2em)]
-            ))
-
-            let state = (
-                number: number,
-                body: it.body,
-                page: loc.page(),
-                level: it.level
-            )
+            if it.level == 1 [
+                #set text(font: 字体.黑体, size: 字号.小三)
+                #h(1fr) #numbering(custom_numbering, ..idx) #it.body#h(1fr)
+                #v(1cm)
+                #parbreak()
+            ] else if it.level == 2 [
+                #set text(font: 字体.黑体, size: 字号.四号)
+                #set par(first-line-indent: 0em)
+                #v(0.5em)
+                #numbering(custom_numbering, ..idx) #it.body#h(1fr)
+                #v(0.5em)
+                #parbreak()
+            ] else [
+                #set text(font: 字体.黑体, size: 字号.小四)
+                #set par(first-line-indent: 0em)
+                #v(0.5em)
+                #numbering(custom_numbering, ..idx) #it.body#h(1fr)
+                #v(0.5em)
+                #parbreak()
+            ]
         })
     }
 
