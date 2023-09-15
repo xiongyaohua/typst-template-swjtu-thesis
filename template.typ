@@ -401,48 +401,16 @@
         [结论] not in headings
     }
 
-    // 手工生成目录
-    let outline_state = state("outline", ())
-    let make_outline() = {
-        align(center, text(
-            font: 字体.黑体, size: 字号.小四,
-            [#v(1em) 目#h(1em)录 #v(2em)]
-        ))
-
-        locate(loc => {
-            let headings = query(heading, loc)
-            let fonts = (
-                字体.黑体,
-                字体.宋体,
-                字体.宋体,
-            )
-            let make_entry(entry) = {
-                let font = fonts.at(entry.level - 1)
-                [
-                    #set text(font: font)
-                    #if entry.level >= 3 {
-                        h(2em)
-                    }
-                    #entry.number
-                    #entry.body
-                    #box(width: 1fr, repeat([.]))
-                    #entry.page
-                    #parbreak()
-                ]
-            }
-            grid(columns: (5%, 90%, 5%),
-                [], 
-                [
-                    #set par(first-line-indent: 0em)
-                    #for entry in outline_state.final(loc) {
-                        make_entry(entry)
-                    }
-                ],
-                []
-            )
-        })
-    }
-    make_outline()
+    // 生成目录
+    outline(
+        title: [
+            #set text(font: 字体.黑体, size: 字号.小三)
+            #h(1fr)
+            目#h(1em)录
+            #h(1fr)
+        ],
+        depth: 3
+    )
     pagebreak(weak: true)
     
     set page(numbering: "第 1 页")
@@ -477,10 +445,6 @@
                 page: loc.page(),
                 level: it.level
             )
-            outline_state.update(current => {
-                current.push(state) 
-                current
-            })
         })
     }
     show heading.where(level: 2): it => {
@@ -501,10 +465,6 @@
                 page: loc.page(),
                 level: it.level
             )
-            outline_state.update(current => {
-                current.push(state) 
-                current
-            })
         })
     }
     show heading.where(level: 3): it => {
@@ -525,10 +485,6 @@
                 page: loc.page(),
                 level: it.level
             )
-            outline_state.update(current => {
-                current.push(state) 
-                current
-            })
         })
     }
 
