@@ -476,6 +476,7 @@
             ]
         })
     }
+    set math.equation(numbering: "1.")
 
     正文
 }
@@ -584,13 +585,15 @@ $ integral_a^b sin(x) \dx $ <积分公式>
 一片空白。 #lorem(20)
 
 这是一个引用@gu2012lao，这是另外一个引用@chen2001hao。
-接下来是一堆引用#cite("liuxf2006", "wang1999sanwei")。#lorem(30)
+接下来是一堆引用 @liuxf2006, @wang1999sanwei。
+
+#lorem(30)
 
 = 结论
 
 #heading(outlined: false)[致谢]
 
 #heading(outlined: false)[参考文献]
-#bibliography("reference.bib", style: "ieee")
+#bibliography("reference.bib", style: "gb-7114-2015-numeric", title: none)
 
 #heading(outlined: false)[附录]
