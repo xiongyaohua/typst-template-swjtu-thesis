@@ -95,11 +95,20 @@
 
         pagebreak()
         
+        show outline.entry: it => {
+        }
         outline(
             title: [
-                aaa
-                #emph([aaa])
-            ]
+                #set text(
+                    font: 字体.黑体,
+                    size: 字号.小二
+                )
+                #h(1fr)
+                目#h(1em)录
+                #h(1fr)
+                #v(2em)
+            ],
+            depth: 2
         )
     })
 
@@ -134,7 +143,7 @@
 == 方法一
 == 方法二
 == 方法二
-
+lakjdfl
 = 实验
 == 实验一
 === 数据
