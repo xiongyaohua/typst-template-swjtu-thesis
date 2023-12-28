@@ -95,14 +95,26 @@
         ]
 
         #v(5cm)
-    #set align(right)
-    #box(width:10cm)[
-      作者签名：#h(1fr)
-      #v(1cm)
-      #repeat[.]
-      #v(0.5cm)
-      日期：#h(2.5cm)年#h(1.5cm)月#h(1.5cm)日
-    ]
+    
+    #grid(
+      columns: 2,
+      column-gutter: 1em,
+      box(width:100%)[
+        作者签名：#h(1fr)
+        #v(1cm)
+        #repeat[.]
+        #v(0.5cm)
+        日期：#h(2cm)年#h(1cm)月#h(1cm)日
+      ],
+      box(width:100%)[
+        指导教师签名：#h(1fr)
+        #v(1cm)
+        #repeat[.]
+        #v(0.5cm)
+        日期：#h(2cm)年#h(1cm)月#h(1cm)日
+      ]
+
+    )
     ]
     pagebreak(weak: true)
 }
@@ -156,8 +168,8 @@
     #v(1cm)
     备#h(2em)注：#underline(信息.备注)
 
-    #v(0.5cm)
-    #par(first-line-indent: 0em)[
+    #v(1cm)
+    #par[
         指导教师：#box(width:4cm, repeat([.]))
         #h(3cm)年
         #h(1cm)月
@@ -169,41 +181,31 @@
   pagebreak(weak: true)
 }
 
-// 测试
-#show: 全局样式
-#let 信息 = arguments(
-  题目: [如何用Typst写论文],
-  年级: [2016],
-  学号: [123456],
-  姓名: [张三],
-  专业: [交通工程],
-  指导教师: [李四],
-  发题日期: datetime.today(),
-  完成日期: datetime.today()
-)
+#let 摘要(英文: false, 关键词: [], 内容) = {
+  [
+    #let title = if 英文 {
+        [Abstract]
+    } else {
+        [摘#h(3em)要]
+    }
+    
+    #let keywords = if 英文 {
+        [Key words: ]
+    } else {
+        [关键词：]
+    }
 
-#扉页(
-  ..信息
-)
-#诚信声明()
-#授权书()
-#任务书(
-  ..信息,
-  目的意义: [
-    减少论文排版工作量，提高格式统一度。
-  ],
-  任务: [
-    对照本文档的Typst源代码和最终pdf输出，通过比较学习如何用Typst排版论文。
-  ],
-  达成度: [
-    培养学习能力。
-  ],
-  时间分配: [
-    - 第一周
-    - 第二周
-    - 第三周
-  ],
-  备注:[
-    无
+    #set align(center)
+    #text(font: 字体.黑体, size: 字号.小二, weight: "bold")[#title]
+    #v(1em)
+    
+    #set align(left)
+    #set text(font: 字体.宋体, size: 字号.五号)
+    #[
+      #set par(first-line-indent: 2em)
+      #内容
+    ]
+    #v(1cm)
+    #text(font: 字体.黑体)[#keywords]#关键词
   ]
-)
+}
