@@ -90,6 +90,7 @@
         #lorem(50)
         ]
 
+
         show outline.entry: it => {
             it.body
             h(1em)
@@ -112,7 +113,8 @@
             indent: 2em
         )
     })
-    pagebreak(to: "odd")
+    //page([])
+    pagebreak(to: "odd", weak: true)
 
     show: 添加页眉
     set page(numbering: "1", footer: [
@@ -123,8 +125,40 @@
         )
     ])
 
+
     counter(page).update(1)
-    set heading(numbering: "1.1")
+    set heading(numbering: (..nums) => {
+        if nums.pos().len() == 1 {
+            numbering("第一章", ..nums)
+        } else {
+            numbering("1.1", ..nums)
+        }
+    })
+    show heading: it => {
+        set text(font: "SimHei")
+        let loc = it.location()
+        let num = counter(heading).at(loc)
+        
+        if num.len() == 1 {
+            pagebreak(weak: true)
+            block[
+                #h(1fr)
+                #numbering("第一章", ..num)
+                #h(1em)
+                #it.body
+                #h(1fr)
+            ]
+            par(leading: 0em, hide(text(size: 10pt)[aa]))
+        } else {
+            block[
+                #numbering("1.1", ..num)
+                #it.body
+            ]
+            par(leading: 0em, hide(text(size: 5pt)[aa]))
+        }
+
+    }
+    set par(first-line-indent: 2em)
     body
 }
 
@@ -140,6 +174,9 @@
 )
 
 = 绪论
+#lorem(50)
+
+#lorem(50)
 == 背景
 == 研究问题
 == 计划
@@ -150,6 +187,8 @@
 = 方法
 
 #lorem(50)
+
+#lorem(50)
 == 方法一
 == 方法二
 == 方法二
@@ -157,9 +196,81 @@ lakjdfl
 = 实验
 == 实验一
 #lorem(50)
+#lorem(50)
 === 数据
 == 实验二
 === 数据
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+== 实验二
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+=== 数据
+#lorem(50)
 == 实验二
 == 实验二
 == 实验二
