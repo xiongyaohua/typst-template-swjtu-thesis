@@ -21,6 +21,52 @@
     body
 }
 
+#let 正文开始(body) = {
+    set page(footer: [
+        #set align(center)
+        #counter(page).display(
+            "第 1 页",
+            both: false,
+        )
+    ])
+    set heading(numbering: (..nums) => {
+        if nums.pos().len() == 1 {
+            numbering("第 1 章  ", ..nums)
+        } else {
+            numbering("1. 1 ", ..nums)
+        }
+    })
+    show heading: it => {
+        set text(font: "SimHei")
+        let loc = it.location()
+        let num = counter(heading).at(loc)
+        
+        if it.level == 1 {
+            pagebreak(weak: true)
+            v(1em)
+            block[
+                #h(1fr)
+                #numbering("第1章", ..num)
+                #h(1em)
+                #it.body
+                #h(1fr)
+            ]
+            par(leading: 0em, hide(text(size: 10pt)[aa]))
+        } else {
+            block[
+                #numbering("1.1", ..num)
+                #it.body
+            ]
+            par(leading: 0em, hide(text(size: 5pt)[aa]))
+        }
+
+    }
+    set par(first-line-indent: 2em)
+    
+    counter(page).update(1)
+    body
+}
+
 #let 论文(..信息, body) = {
     show: 全局样式
 
@@ -32,7 +78,8 @@
     诚信声明()
     授权书()
     
-    添加页眉({
+    show: 添加页眉
+    {
         set page(numbering: "第 I 页")
         counter(page).update(1)
 
@@ -92,46 +139,83 @@
 
 
         show outline.entry: it => {
+            let font = 字体.宋体
+            if it.level == 1 {
+                font = 字体.黑体
+            }
+            set text(font: font)
             it.body
             h(1em)
             box(width: 1fr, it.fill)
             h(1em)
-            it.page
+            link(it.element.location(), it.page)
+            box(width: 0em, height: 1.5em) // Gutter
         }
+
         outline(
             title: [
                 #set text(
                     font: 字体.黑体,
                     size: 字号.小二
                 )
+                #v(1em)
                 #h(1fr)
                 目#h(1em)录
                 #h(1fr)
                 #v(2em)
             ],
-            depth: 2,
-            indent: 2em
+            depth: 3,
+            indent: n => {
+                if n < 2 {
+                    0em
+                } else {
+                    2em * (n - 1)
+                }
+            }
         )
-    })
-    //page([])
-    pagebreak(to: "odd", weak: true)
+        pagebreak(weak: true)
+    }
 
-    show: 添加页眉
-    set page(numbering: "1", footer: [
-        #set align(center)
-        #counter(page).display(
-            "第 1 页",
-            both: false,
-        )
-    ])
+    show: 正文开始
+    body
+}
 
 
-    counter(page).update(1)
+#let 正文结束(body) = {
+    set heading(numbering: none)
+
+    show heading: it => {
+        set text(font: "SimHei")
+        let loc = it.location()
+        let num = counter(heading).at(loc)
+        
+        if it.level == 1 {
+            pagebreak(weak: true)
+            v(1em)
+            block[
+                #h(1fr)
+                #it.body
+                #h(1fr)
+            ]
+            par(leading: 0em, hide(text(size: 10pt)[aa]))
+        } else {
+            block[
+                #it.body
+            ]
+            par(leading: 0em, hide(text(size: 5pt)[aa]))
+        }
+
+    }
+
+    body
+}
+
+#let 附录(body) = {
     set heading(numbering: (..nums) => {
         if nums.pos().len() == 1 {
-            numbering("第一章", ..nums)
+            numbering("附录A ", ..nums)
         } else {
-            numbering("1.1", ..nums)
+            numbering("A. 1 ", ..nums)
         }
     })
     show heading: it => {
@@ -139,11 +223,12 @@
         let loc = it.location()
         let num = counter(heading).at(loc)
         
-        if num.len() == 1 {
+        if it.level == 1 {
             pagebreak(weak: true)
+            v(1em)
             block[
                 #h(1fr)
-                #numbering("第一章", ..num)
+                #numbering("附录A", ..num)
                 #h(1em)
                 #it.body
                 #h(1fr)
@@ -151,14 +236,15 @@
             par(leading: 0em, hide(text(size: 10pt)[aa]))
         } else {
             block[
-                #numbering("1.1", ..num)
+                #numbering("A.1", ..num)
                 #it.body
             ]
             par(leading: 0em, hide(text(size: 5pt)[aa]))
         }
 
     }
-    set par(first-line-indent: 2em)
+
+    counter(heading).update(0)
     body
 }
 
@@ -173,11 +259,12 @@
   完成日期: datetime.today()
 )
 
+#page(header: none, footer: none)[] //FIXME: 自动插入空白页
 = 绪论
 #lorem(50)
 
-#lorem(50)
 == 背景
+#lorem(50)
 == 研究问题
 == 计划
 
@@ -200,153 +287,20 @@ lakjdfl
 === 数据
 == 实验二
 === 数据
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-#lorem(50)
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-== 实验二
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-=== 数据
-#lorem(50)
 == 结果分析
+
+#show: 正文结束
 = 结论
 
 = 致谢
 
 #bibliography("reference.bib", style: "gb-7714-2005-numeric")
 
-= 附录
+#show: 附录
+
+= 英文翻译
+== 翻译一
+== 翻译二
+= 公式推导
+== 公式一
+== 公式二
