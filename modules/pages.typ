@@ -196,17 +196,18 @@
     }
 
     #set align(center)
+    #v(1em)
     #text(font: 字体.黑体, size: 字号.小二, weight: "bold")[#title]
     #v(1em)
     
     #set align(left)
-    #set text(font: 字体.宋体, size: 字号.五号)
+    #set text(font: 字体.宋体, size: 字号.小四)
     #[
       #set par(first-line-indent: 2em)
       #内容
     ]
     #v(1cm)
-    #text(font: 字体.黑体)[#keywords]#关键词
+    #text(font: 字体.黑体)[#keywords#关键词]
 
     #pagebreak()
   ]

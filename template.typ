@@ -43,6 +43,7 @@
         
         if it.level == 1 {
             pagebreak(weak: true)
+            set text(size: 字号.小三)
             v(1em)
             block[
                 #h(1fr)
@@ -53,6 +54,7 @@
             ]
             par(leading: 0em, hide(text(size: 10pt)[aa]))
         } else {
+            set text(size: 字号.四号)
             block[
                 #numbering("1.1", ..num)
                 #it.body
@@ -191,6 +193,7 @@
         
         if it.level == 1 {
             pagebreak(weak: true)
+            set text(size: 字号.小三)
             v(1em)
             block[
                 #h(1fr)
@@ -199,6 +202,7 @@
             ]
             par(leading: 0em, hide(text(size: 10pt)[aa]))
         } else {
+            set text(size: 字号.四好)
             block[
                 #it.body
             ]
@@ -225,6 +229,7 @@
         
         if it.level == 1 {
             pagebreak(weak: true)
+            set text(size: 字号.小三)
             v(1em)
             block[
                 #h(1fr)
@@ -235,6 +240,7 @@
             ]
             par(leading: 0em, hide(text(size: 10pt)[aa]))
         } else {
+            set text(size: 字号.四号)
             block[
                 #numbering("A.1", ..num)
                 #it.body
