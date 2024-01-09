@@ -128,6 +128,7 @@
     ]
     #v(1cm)
     #set text(size: 字号.小四)
+    #set list(indent: 2em)
 
     班#h(2em)级：#underline(信息.专业)
     #h(1fr)
