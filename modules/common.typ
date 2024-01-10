@@ -26,6 +26,11 @@
   代码: ("New Computer Modern Mono", "Times New Roman", "SimSun"),
 )
 
+#let 占位(body) = {
+  set text(fill: red)
+  body
+}
+
 // 全局样式
 #let 全局样式(rest) = {
   set page(paper:"a4", margin: (
