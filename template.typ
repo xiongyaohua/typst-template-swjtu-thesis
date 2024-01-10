@@ -38,7 +38,12 @@
         }
     })
     
-    set par(first-line-indent: 2em)
+    set par(first-line-indent: 2em, leading: 1em)
+    show strong: set text(font: 字体.黑体)
+    show emph: set text(font: 字体.楷体)
+    set list(indent: 2em, tight: false)
+    set enum(indent: 2em, tight: false)
+
     counter(page).update(1)
     body
 }
