@@ -31,6 +31,18 @@
   body
 }
 
+#let 格式化日期(p_datetime, format) = {
+  if type(p_datetime) == datetime {
+    set text(font: 字体.宋体, size: 字号.小四)
+
+    p_datetime.display(format)
+  } else {
+    set text(font: 字体.宋体, size: 字号.小四, fill: red)
+
+    datetime.today().display(format)
+  }
+}
+
 // 全局样式
 #let 全局样式(rest) = {
   set page(paper:"a4", margin: (

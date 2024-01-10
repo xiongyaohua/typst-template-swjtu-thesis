@@ -1,4 +1,4 @@
-#import "common.typ": 字号, 字体, 全局样式
+#import "common.typ": 字号, 字体, 全局样式, 格式化日期
 
 // 附页
 #let 扉页(..信息) = {
@@ -34,9 +34,7 @@
     ]
     
     #v(1fr)
-    #text(font: 字体.宋体, size: 字号.小四)[
-        #信息.完成日期.display("[year] 年 [month] 月")
-    ]
+    #格式化日期(信息.完成日期, "[year] 年 [month] 月")
     #v(2cm)
   ]
   pagebreak(weak: true)
@@ -136,9 +134,9 @@
     #h(1fr)
     学#h(2em)号：#underline(信息.学号)
 
-    发题日期：#underline(信息.发题日期.display("[year] 年 [month] 月 [day] 日"))
+    发题日期：#underline(格式化日期(信息.发题日期, "[year] 年 [month] 月 [day] 日"))
     #h(1fr)
-    完成日期：#underline(信息.完成日期.display("[year] 年 [month] 月 [day] 日"))
+    完成日期：#underline(格式化日期(信息.完成日期, "[year] 年 [month] 月 [day] 日"))
 
     题#h(2em)目：#underline[#信息.题目]#h(1fr)
 
