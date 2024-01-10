@@ -1,4 +1,4 @@
-#import "modules/common.typ": 占位, 标题样式
+#import "modules/common.typ": 占位
 #import "modules/pages.typ": *
 
 #let 添加页眉(body) = {
@@ -37,12 +37,8 @@
             numbering("1. 1 ", ..nums)
         }
     })
-    show heading: 标题样式.with(
-        format1: "第1章 ",
-        format2: "1. 1  "
-    )
-    set par(first-line-indent: 2em)
     
+    set par(first-line-indent: 2em)
     counter(page).update(1)
     body
 }
@@ -51,27 +47,18 @@
 #let 正文结束(body) = {
     set heading(numbering: none)
 
-    show heading: 标题样式.with(
-        format1: none,
-        format2: none
-    )
-    
     body
 }
 
 #let 附录(body) = {
     set heading(numbering: (..nums) => {
         if nums.pos().len() == 1 {
-            numbering("附录A ", ..nums)
+            numbering("附录 A ", ..nums)
         } else {
             numbering("A. 1 ", ..nums)
         }
     })
-    show heading: 标题样式.with(
-        format1: "附录A  ",
-        format2: "A. 1  "
-    )
-
+    
     counter(heading).update(0)
     body
 }
@@ -177,17 +164,7 @@
         }
 
         outline(
-            title: [
-                #set text(
-                    font: 字体.黑体,
-                    size: 字号.小二
-                )
-                #v(1em)
-                #h(1fr)
-                目#h(1em)录
-                #h(1fr)
-                #v(2em)
-            ],
+            title: [目#h(1em)录],
             depth: 3,
             indent: n => {
                 if n < 2 {

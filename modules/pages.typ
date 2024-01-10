@@ -185,7 +185,7 @@
     #let title = if 英文 {
         [Abstract]
     } else {
-        [摘#h(3em)要]
+        [摘#h(1em)要]
     }
     
     #let keywords = if 英文 {

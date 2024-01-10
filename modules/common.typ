@@ -43,38 +43,6 @@
   }
 }
 
-#let 章节标题样式(format, ..num) = {
-      if format != none {
-        numbering(format, ..num)
-      }
-}
-
-#let 标题样式(format1: none, format2: none, it) = {
-    set text(font: 字体.黑体)
-    let loc = it.location()
-    let num = counter(heading).at(loc)
-    
-    if it.level == 1 {
-        pagebreak(weak: true)
-        set text(size: 字号.小三)
-        v(1em)
-        block[
-            #h(1fr)
-            #章节标题样式(format1, ..num)
-            #it.body
-            #h(1fr)
-        ]
-        par(leading: 0em, hide(text(size: 10pt)[aa]))
-    } else {
-        set text(size: 字号.四号)
-        block[
-            #章节标题样式(format2, ..num)
-            #it.body
-        ]
-        par(leading: 0em, hide(text(size: 5pt)[aa]))
-    }
-}
-
 // 全局样式
 #let 全局样式(rest) = {
   set page(paper:"a4", margin: (
@@ -83,6 +51,27 @@
   set text(font: 字体.宋体, size: 字号.小四, lang: "zh")
   set par(justify: true, linebreaks: "optimized")
   set underline(offset: 2pt, extent: 1pt)
+
+  show heading.where(level: 1): set text(size: 字号.小二)
+  show heading.where(level: 1): set align(center)
+
+  show heading.where(level: 2): set text(size: 字号.小三)
+  show heading.where(level: 3): set text(size: 字号.四号)
+  
+  show heading: set text(font: 字体.黑体, size: 字号.小四)
+  
+  show heading.where(level: 1): it => {
+    pagebreak()
+    it
+    par(leading: 0em, hide(text(size: 0pt)[xx])) // 保证下一段提行
+  }
+  show heading: it => {
+    it
+    par(leading: 0em, hide(text(size: 0pt)[xx])) // 保证下一段提行
+  }
+  
+  show heading.where(level: 1): set block(inset: (top: 1.5em, bottom: 1em))
+  show heading: set block(inset: (top: 0.5em, bottom: 0.5em))
 
   rest
 }
