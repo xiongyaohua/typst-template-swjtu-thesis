@@ -1,4 +1,4 @@
-#import "modules/common.typ": 占位
+#import "modules/common.typ": 占位, 标题样式
 #import "modules/pages.typ": *
 
 #let 添加页眉(body) = {
@@ -37,33 +37,10 @@
             numbering("1. 1 ", ..nums)
         }
     })
-    show heading: it => {
-        set text(font: "SimHei")
-        let loc = it.location()
-        let num = counter(heading).at(loc)
-        
-        if it.level == 1 {
-            pagebreak(weak: true)
-            set text(size: 字号.小三)
-            v(1em)
-            block[
-                #h(1fr)
-                #numbering("第1章", ..num)
-                #h(1em)
-                #it.body
-                #h(1fr)
-            ]
-            par(leading: 0em, hide(text(size: 10pt)[aa]))
-        } else {
-            set text(size: 字号.四号)
-            block[
-                #numbering("1.1", ..num)
-                #it.body
-            ]
-            par(leading: 0em, hide(text(size: 5pt)[aa]))
-        }
-
-    }
+    show heading: 标题样式.with(
+        format1: "第1章 ",
+        format2: "1. 1  "
+    )
     set par(first-line-indent: 2em)
     
     counter(page).update(1)
@@ -74,31 +51,11 @@
 #let 正文结束(body) = {
     set heading(numbering: none)
 
-    show heading: it => {
-        set text(font: "SimHei")
-        let loc = it.location()
-        let num = counter(heading).at(loc)
-        
-        if it.level == 1 {
-            pagebreak(weak: true)
-            set text(size: 字号.小三)
-            v(1em)
-            block[
-                #h(1fr)
-                #it.body
-                #h(1fr)
-            ]
-            par(leading: 0em, hide(text(size: 10pt)[aa]))
-        } else {
-            set text(size: 字号.四好)
-            block[
-                #it.body
-            ]
-            par(leading: 0em, hide(text(size: 5pt)[aa]))
-        }
-
-    }
-
+    show heading: 标题样式.with(
+        format1: none,
+        format2: none
+    )
+    
     body
 }
 
@@ -110,33 +67,10 @@
             numbering("A. 1 ", ..nums)
         }
     })
-    show heading: it => {
-        set text(font: "SimHei")
-        let loc = it.location()
-        let num = counter(heading).at(loc)
-        
-        if it.level == 1 {
-            pagebreak(weak: true)
-            set text(size: 字号.小三)
-            v(1em)
-            block[
-                #h(1fr)
-                #numbering("附录A", ..num)
-                #h(1em)
-                #it.body
-                #h(1fr)
-            ]
-            par(leading: 0em, hide(text(size: 10pt)[aa]))
-        } else {
-            set text(size: 字号.四号)
-            block[
-                #numbering("A.1", ..num)
-                #it.body
-            ]
-            par(leading: 0em, hide(text(size: 5pt)[aa]))
-        }
-
-    }
+    show heading: 标题样式.with(
+        format1: "附录A  ",
+        format2: "A. 1  "
+    )
 
     counter(heading).update(0)
     body
@@ -239,7 +173,7 @@
             box(width: 1fr, it.fill)
             h(1em)
             link(it.element.location(), it.page)
-            box(width: 0em, height: 1.5em) // Gutter
+            box(width: 0em, height: 1.4em) // Gutter
         }
 
         outline(

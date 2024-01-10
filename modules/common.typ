@@ -43,6 +43,38 @@
   }
 }
 
+#let 章节标题样式(format, ..num) = {
+      if format != none {
+        numbering(format, ..num)
+      }
+}
+
+#let 标题样式(format1: none, format2: none, it) = {
+    set text(font: 字体.黑体)
+    let loc = it.location()
+    let num = counter(heading).at(loc)
+    
+    if it.level == 1 {
+        pagebreak(weak: true)
+        set text(size: 字号.小三)
+        v(1em)
+        block[
+            #h(1fr)
+            #章节标题样式(format1, ..num)
+            #it.body
+            #h(1fr)
+        ]
+        par(leading: 0em, hide(text(size: 10pt)[aa]))
+    } else {
+        set text(size: 字号.四号)
+        block[
+            #章节标题样式(format2, ..num)
+            #it.body
+        ]
+        par(leading: 0em, hide(text(size: 5pt)[aa]))
+    }
+}
+
 // 全局样式
 #let 全局样式(rest) = {
   set page(paper:"a4", margin: (
