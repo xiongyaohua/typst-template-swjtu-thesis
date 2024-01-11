@@ -1,4 +1,4 @@
-#import "modules/common.typ": 占位
+#import "modules/common.typ": 占位, 示例
 #import "modules/pages.typ": *
 
 #let 添加页眉(body) = {

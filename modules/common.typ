@@ -43,6 +43,25 @@
   }
 }
 
+#let 示例(code) = {
+    set heading(outlined: false, numbering: none)
+    show heading: it => {
+      set text(font: 字体.黑体)
+      block[
+        #it.body
+      ]
+    }
+    show figure: set block(breakable: false)
+    //show table: set block(breakable: true)
+    figure(table(
+        columns: (1fr,1fr), align: left,
+        [#h(1fr)源码#h(1fr)], [#h(1fr)排版结果#h(1fr)],
+        raw(code, lang: "typ"),
+        eval(code)
+    ))
+    par(leading: 0em, hide(text(size: 0pt)[xx])) // 保证下一段提行
+}
+
 // 全局样式
 #let 全局样式(rest) = {
   set page(paper:"a4", margin: (
@@ -72,6 +91,6 @@
   
   show heading.where(level: 1): set block(inset: (top: 1.5em, bottom: 1em))
   show heading: set block(inset: (top: 0.5em, bottom: 0.5em))
-
+  show raw: box.with(fill: luma(200), outset: 1pt, inset: 1pt)
   rest
 }
