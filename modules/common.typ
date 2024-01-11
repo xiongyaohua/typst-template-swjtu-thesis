@@ -56,7 +56,7 @@
     figure(table(
         columns: (1fr,1fr), align: left,
         [#h(1fr)源码#h(1fr)], [#h(1fr)排版结果#h(1fr)],
-        raw(code, lang: "typ"),
+        box(fill: luma(230), width: 100%, inset:5pt, raw(code, lang: "typ")),
         eval(code)
     ))
     par(leading: 0em, hide(text(size: 0pt)[xx])) // 保证下一段提行
@@ -70,6 +70,31 @@
   set text(font: 字体.宋体, size: 字号.小四, lang: "zh")
   set par(justify: true, linebreaks: "optimized")
   set underline(offset: 2pt, extent: 1pt)
+  set math.equation(numbering: num => {
+    locate(loc => {
+      let chapter = counter(heading).at(loc).at(0)
+      [(#chapter]
+      [--]
+      [#num)]
+
+    })
+  })
+
+  set figure(numbering: num => {
+    locate(loc => {
+      let chapter = counter(heading).at(loc).at(0)
+      [#chapter]
+      [--]
+      [#num]
+
+    })
+  })
+  show figure.where(kind: table): set figure.caption(position: top)
+  show figure: set figure.caption(position: bottom)
+  show figure: it => {
+    it
+    par(leading: 0em, hide(text(size: 0pt)[xx])) // 保证下一段提行
+  }
 
   show heading.where(level: 1): set text(size: 字号.小二)
   show heading.where(level: 1): set align(center)
@@ -81,6 +106,7 @@
   
   show heading.where(level: 1): it => {
     pagebreak()
+    counter(math.equation).update(0)
     it
     par(leading: 0em, hide(text(size: 0pt)[xx])) // 保证下一段提行
   }
@@ -91,6 +117,7 @@
   
   show heading.where(level: 1): set block(inset: (top: 1.5em, bottom: 1em))
   show heading: set block(inset: (top: 0.5em, bottom: 0.5em))
-  show raw: box.with(fill: luma(200), outset: 1pt, inset: 1pt)
+  //show raw: box.with(fill: luma(200), outset: 1pt, inset: 1pt)
+  show raw.where(block: false): box.with(fill: luma(200), outset: 1pt, inset: 2pt)
   rest
 }

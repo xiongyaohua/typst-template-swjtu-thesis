@@ -2,6 +2,12 @@
 = Heading 1
 == Heading 2
 
+#set math.equation(numbering: "(1)")
+$ a + b $
+$ a + b $
+$ a + b $
+
+
 #{
   show heading: set align(center)
   show heading: set block(above: 5em)
