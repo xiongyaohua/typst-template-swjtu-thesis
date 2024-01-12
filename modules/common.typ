@@ -20,7 +20,7 @@
 
 #let 字体 = (
   仿宋: ("Times New Roman", "FangSong"),
-  宋体: ("Times New Roman", "NSimSun"),
+  宋体: ("Times New Roman", "SimSun"),
   黑体: ("Times New Roman", "SimHei"),
   楷体: ("Times New Roman", "KaiTi"),
   代码: ("New Computer Modern Mono", "Times New Roman", "SimSun"),
