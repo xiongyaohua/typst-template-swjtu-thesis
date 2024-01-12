@@ -274,10 +274,10 @@ $ f(x)=integral sin(x)/cos(d) dif x $
     $ cal(A) := { x in RR | x "is natural" } $
 ]```.text)
 
-== 图、表排版 <图表排版节>
+== 图、表、代码排版 <图表排版节>
 
-除了文字外，某些时候需要_插入图片、表格_帮助说明问题。Typst中插入图、表分为两个步骤：
-+ 插入图、表本身
+除了文字外，某些时候需要_插入图片、表格、代码段_帮助说明问题。Typst中插入图、表分为两个步骤：
++ 插入图、表、代码本身
 + 添加说明文字
 这样设计的原因是，某些文件里图片和表格不需要说明。但_对于论文说明文字是必须的_。
 
@@ -304,13 +304,40 @@ $ f(x)=integral sin(x)/cos(d) dif x $
     )
 ]```.text)
 
-给图添加标题需要使用`figure`函数，其中`caption`参数指定标题，示例如下：
+插入代码段可以用`raw`函数，或者六个单引号包围#raw("```代码```", block: false)。示例如下，注意单引号后的`python`一词，指定了代码语言，方便进行语法加亮。`raw`函数中的`lang`参数起同样的作用。Typst支持大量编程语言的语法，详情参考文档。
+
+#示例("[
+    ```python
+    a = 3
+    for i in range(20):
+        a += i
+    print(a)
+    ```
+]")
+#示例(```[
+    #raw("int a = 3;
+for(i=0;i<20;i++) {
+    a += i
+}
+cout << a;
+    ", lang: "c++")
+]```.text)
+#示例("[
+    ```rust
+    let mut a: i32 = 3;
+    for i: i32 in 0..20 {
+        a += i;
+    }
+    println!(a)
+    ```
+]")
+
+添加标题需要使用`figure`函数，其中`caption`参数指定标题，示例如下：
 #示例(```[
     #h(2em)新老两代排版人，白发苍苍的老教授和意气风发的青年。
     #figure(
         grid(
-            columns: (1fr, 1fr),
-            column-gutter: 4pt,
+            columns: (1fr, 1fr), column-gutter: 4pt,
             image("../images/knuth.jpeg"),
             image(
                 "../images/martin-and-laurenz.jpeg"
@@ -320,7 +347,18 @@ $ f(x)=integral sin(x)/cos(d) dif x $
     )
 
 ]```.text)
-`figure`函数，同样可以给表格添加标题，示例如下：
+#示例("[
+    #figure(
+        ```python
+        a = 0
+        for i in range(1, 1001):
+            a += i
+        print(a)
+        ```,
+        caption: [从1累加到1000的Python代码。使用了高斯教授发明的最新科技`for`循环]
+    )
+]")
+`figure`函数，同样可以给表格和代码添加标题，示例如下：
 #示例(```[
     #figure(
         table(
