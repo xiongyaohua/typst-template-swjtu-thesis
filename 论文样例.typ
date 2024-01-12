@@ -258,15 +258,15 @@ $ f(x)=integral sin(x)/cos(d) dif x $
     - 这是行外公式：$ f(x)=integral sin(x)/cos(d) dif x $
     - 多行公式用`\`表示换行，`&`表示对齐位置
     $
-       sum_(k=0)^n k
-        &= 1 + ... + n \
-        &= (n(n+1)) / 2 
+        sum_(k=0)^n k
+            &= 1 + ... + n \
+            &= (n(n+1)) / 2 
     
     $
     - `lr`动态调整包围符号大小
     $
         angle.l i, 2^(2^i) angle.r \
-       lr(angle.l i, 2^(2^i) angle.r)
+        lr(angle.l i, 2^(2^i) angle.r)
     $
     - 公式中内嵌文字
     $ "area" = pi dot "radius"^2 $

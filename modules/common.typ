@@ -51,12 +51,16 @@
         #it.body
       ]
     }
+    show raw.where(block: true): it => {
+      set text(font: "Noto Sans Mono CJK SC")
+      it
+    }
     show figure: set block(breakable: false)
     //show table: set block(breakable: true)
     figure(numbering: none, table(
         columns: (1fr,1fr), align: left,
         [#h(1fr)源码#h(1fr)], [#h(1fr)排版结果#h(1fr)],
-        box(fill: luma(230), width: 100%, inset:5pt, raw(code, lang: "typ")),
+        box(fill: luma(230), width: 100%, inset:5pt, raw(code, lang: "typ", block: true)),
         eval(code)
     ))
     par(leading: 0em, hide(text(size: 0pt)[xx])) // 保证下一段提行
@@ -95,6 +99,7 @@
     par(leading: 0em, hide(text(size: 0pt)[xx])) // 保证下一段提行
   }
 
+  set heading(supplement: none)
   show heading.where(level: 1): set text(size: 字号.小二)
   show heading.where(level: 1): set align(center)
 
@@ -119,6 +124,16 @@
   show heading.where(level: 1): set block(inset: (top: 1.5em, bottom: 1em))
   show heading: set block(inset: (top: 0.5em, bottom: 0.5em))
   //show raw: box.with(fill: luma(200), outset: 1pt, inset: 1pt)
-  show raw.where(block: false): box.with(fill: luma(200), outset: 1pt, inset: 2pt)
+  show raw.where(block: false): it => {
+    set text(font: "Noto Sans Mono CJK SC")
+    box(
+      fill: luma(200),
+      outset: 1pt, 
+      inset: 2pt,
+      radius: 2pt,
+      baseline: 1pt,
+      it.text
+    )
+  }
   rest
 }
