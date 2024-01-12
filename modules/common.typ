@@ -53,7 +53,7 @@
     }
     show figure: set block(breakable: false)
     //show table: set block(breakable: true)
-    figure(table(
+    figure(numbering: none, table(
         columns: (1fr,1fr), align: left,
         [#h(1fr)源码#h(1fr)], [#h(1fr)排版结果#h(1fr)],
         box(fill: luma(230), width: 100%, inset:5pt, raw(code, lang: "typ")),
@@ -86,7 +86,6 @@
       [#chapter]
       [--]
       [#num]
-
     })
   })
   show figure.where(kind: table): set figure.caption(position: top)
@@ -106,6 +105,8 @@
   
   show heading.where(level: 1): it => {
     pagebreak()
+    counter(figure.where(kind: image)).update(0)
+    counter(figure.where(kind: table)).update(0)
     counter(math.equation).update(0)
     it
     par(leading: 0em, hide(text(size: 0pt)[xx])) // 保证下一段提行

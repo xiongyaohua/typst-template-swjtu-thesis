@@ -6,10 +6,10 @@
 #show: 论文.with(
     题目: [如何用Typst排版论文],
     年级: [2024],
-    学号: [123456],
+    //学号: [123456],
     //姓名: [张三], 
     专业: [交通工程],
-    指导教师: [李四],
+    指导教师: [熊耀华],
     //发题日期: datetime(year: 2023, month: 12, day: 1),
     //完成日期: datetime.today(),
     目的意义: [
@@ -68,7 +68,8 @@ Typst是一种排版工具，本文介绍如果用来排版本科毕业论文。
 
 #figure(
     image("./images/why-typst.jpg"),
-    caption: [LaTeX衰，Typst帅#emoji.dog.face]
+    //caption: [LaTeX衰，Typst帅#emoji.dog.face],
+    caption: [LaTeX衰，Typst帅],
 ) <衰和帅>
 
 Typst可以看作现代化的LaTeX，基于同样的核心设计思想——_“内容与形式分离”_，但是吸收了半个世纪软件技术的成果，在表达能力、处理效率、用户体验等各个方面有了长足的进步。#ref(<衰和帅>)风趣的表达了两种系统的区别。
@@ -315,7 +316,6 @@ $ f(x)=integral sin(x)/cos(d) dif x $
 ]```.text)
 `figure`函数，同样可以给表格添加标题，示例如下：
 #示例(```[
-    #h(2em)常用排版软件的作者是：
     #figure(
         table(
         columns: (1fr, 1fr),
@@ -325,10 +325,10 @@ $ f(x)=integral sin(x)/cos(d) dif x $
         [LaTeX], [Leslie Lamport],
         [Word], [不详]
         ),
-        caption: [aaa]
+        caption: [常用排版软件和作者对照表],
+        kind: table
     )
 ]```.text)
-
 
 == 内部交叉引用
 == 文献管理和引用
@@ -346,10 +346,40 @@ $ f(x)=integral sin(x)/cos(d) dif x $
 
 #show: 附录
 
+= 其他说明
+附录中标号有特殊要求，一般用“A、B、C”代替“1、2、3”。不过Typst会处理好这些细节，不用作者操心。例如：
+
+#示例(```[
+    $ f(x)=integral sin(x)/cos(d) dif x $
+]```.text)
+
+#示例(```[
+    #figure(
+        table(
+        columns: (1fr, 1fr),
+        [软件], [作者],
+        [Typst], [Martin Haugh和Laurenz Mädje],
+        [TeX], [Donald Knuth],
+        [LaTeX], [Leslie Lamport],
+        [Word], [不详]
+        ),
+        caption: [常用排版软件和作者对照表],
+        kind: table
+    )
+]```.text)
+
+#示例(```[
+    #figure(
+        grid(
+            columns: (1fr, 1fr),
+            column-gutter: 4pt,
+            image("../images/knuth.jpeg"),
+            image("../images/martin-and-laurenz.jpeg"),
+        ),
+        caption: [TeX的创造者Donald Knuth教授（左图）；Typst的创造者Martin Haugh和Laurenz Mädje（右图）]
+    )
+]```.text)
+
 = 英文翻译
-$ f(x)=integral sin(x)/cos(d) dif x $
-== 翻译一
-== 翻译二
+
 = 公式推导
-== 公式一
-== 公式二

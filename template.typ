@@ -75,6 +75,14 @@
 
         })
     })
+    set figure(numbering: num => {
+        locate(loc => {
+            let chapter = counter(heading).at(loc).at(0)
+            numbering("A", chapter)
+            [--]
+            [#num]
+        })
+    })
     body
 }
 
