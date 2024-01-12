@@ -52,7 +52,7 @@
       ]
     }
     show raw.where(block: true): it => {
-      set text(font: "Noto Sans Mono CJK SC")
+      set block(width: 100%)
       it
     }
     show figure: set block(breakable: false)
@@ -60,7 +60,7 @@
     figure(numbering: none, table(
         columns: (1fr,1fr), align: left,
         [#h(1fr)源码#h(1fr)], [#h(1fr)排版结果#h(1fr)],
-        box(fill: luma(230), width: 100%, inset:5pt, raw(code, lang: "typ", block: true)),
+        box(width: 100%, raw(code, lang: "typ", block: true)),
         eval(code)
     ))
     par(leading: 0em, hide(text(size: 0pt)[xx])) // 保证下一段提行

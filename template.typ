@@ -55,6 +55,13 @@
         }
     }
     
+    show raw.where(block: true): it => {
+        set text(font: "Noto Sans Mono CJK SC")
+        set block(fill: luma(230), width: 90%, radius: 3pt, inset:5pt)
+        set align(center)
+        it
+    }
+
     set par(first-line-indent: 2em, leading: 1em)
     show strong: set text(font: 字体.黑体)
     show emph: set text(font: 字体.楷体)
