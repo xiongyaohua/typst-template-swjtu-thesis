@@ -32,11 +32,28 @@
     ])
     set heading(numbering: (..nums) => {
         if nums.pos().len() == 1 {
-            numbering("第 1 章  ", ..nums)
+            numbering("第 1 章", ..nums)
         } else {
-            numbering("1. 1 ", ..nums)
+            numbering("1. 1", ..nums)
         }
     })
+    
+    show ref: it => {
+        let el = it.element
+        if el != none and el.func() == heading {
+            it
+            if el.level == 1 []
+            else if el.level == 2 [节]
+            else [小节]
+            // Override equation references.
+            //numbering(
+            //    el.numbering,
+            //    ..counter(eq).at(el.location())
+            //)
+        } else {
+            it
+        }
+    }
     
     set par(first-line-indent: 2em, leading: 1em)
     show strong: set text(font: 字体.黑体)
