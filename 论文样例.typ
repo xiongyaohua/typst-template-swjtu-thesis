@@ -44,35 +44,33 @@
     ],
     中文关键词: [论文、排版、Typst],
     中文摘要: [
-        #lorem(100)
+        论文排版规范是毕业要求之一，有重要的意义。本文探索用新锐结构化排版工具Typst在论文排版工作中的应用。本文首先介绍了排版的一般理论；然后比较分析了不同类型排版软件的特点；最后用Typst实际排版一篇符合西南交通大学学位论文格式要求的论文作为案例。通过理论分析和案例分析本文得出结论：Typst能够保证排版质量、提高排版效率、降低排版工作量，是学位论文排版的有效工具。
     ],
     英文关键词: [Thesis, Typesetting],
     英文摘要: [
-        #lorem(50)
-
-        #lorem(50)
+        A well typesetted thesis, conforming to required style, is a prerequisite for academic degrees. This research explore the potential of a new structural typesetting system, named _Typst_, in thesis typesetting. We first introduced the general typesetting rules and principles, then analyzed various typesetting systems by feature comparison. Finally, with the gained insight and skill, we carried out an actural typesetting project, which produces a sample text conforming to the thesis style guide of Southwest Jiaotong University, as a case study. Based on theoritial analysis and case study we conclude that _Typst_ represents an effective typesetting tool for thesis, and it excels not only in quality of result, but also in efficiency of process.
     ]
 )
 
 #page(header: none, footer: none)[] //FIXME: 自动插入空白页
 = 绪论 <绪论章>
 
-Typst是一种新锐结构化文档排版工具@madje2022。本文介绍如果用来排版本科毕业论文。
+Typst是一种新锐结构化文档排版工具@madje2022，可用于复杂结构化文档的排版。本文主要有两个目的，一是作为文档介绍用Typst排版本科毕业论文的方法；二是_本文自身用Typst排版_，可以作为案例证明Typst排版的有效性。
 
 == 背景
 
-排版软件各式各样，论文写作最常用的有两种：
-- 微软Word；
-- LaTeX。
-其中Word不适合复杂结构化文本的排版，LaTeX开发年代久远，局限于当时的技术水平不注重用户使用体验。
+排版软件各式各样，论文写作最常用的有两种：微软Word和LaTeX。其中Word作为图形化程序上手简单，但排版论文，尤其是长篇学术论文时，往往存在效率低下，排版质量欠缺的问题。LaTeX是当前学术排版的事实标准，排版质量近乎完美，但是LaTeX开发年代久远，语法晦涩、使用繁琐，新手难以入门。
 
-#figure(
-    image("./images/why-typst.jpg"),
-    //caption: [LaTeX衰，Typst帅#emoji.dog.face],
-    caption: [LaTeX衰，Typst帅],
-) <衰和帅>
+Typst可以看作现代化的LaTeX，基于同样的核心设计思想——_“内容与形式分离”_，但是吸收了半个世纪软件技术的成果，在表达能力、处理效率、易用性等各个方面有了长足的进步。#ref(<衰和帅>)风趣的表达了两种系统的区别。
 
-Typst可以看作现代化的LaTeX，基于同样的核心设计思想——_“内容与形式分离”_，但是吸收了半个世纪软件技术的成果，在表达能力、处理效率、用户体验等各个方面有了长足的进步。#ref(<衰和帅>)风趣的表达了两种系统的区别。
+Typst项目根据名字的首字母“t”，设计了该项目的吉祥物：字母怪兽t。@吉祥物
+
+#figure(image(
+    "./images/typst-logo.jpg",
+    width: 40%
+    ),
+    caption: [Typst项目吉祥物] 
+) <吉祥物>
 
 本文结合本科学位论文排版需求，探索如何用Typst排版复杂的结构化文档。
 
@@ -146,6 +144,12 @@ Typst软件可以看作对TeX/LaTeX设计思想的继承和发展。TeX/LaTeX开
 - Typst虽然与TeX不直接兼容，但是完整继承了“排版就是编程”的精神，和对排版细节质量的追求。实际上Typst里的核心算法，如分词、断行等，直接来自于TeX。
 - Typst抛弃了TeX的宏语言设计，采用了当前最先进的*不可变函数式编程*（immutable functional programing）语言设计@wadler1992。这种设计极大的提高了语言的严密性、表达力、运行效率。
 - Typst开发中采用当前最新的软件技术与工具。例如用Rust语言开发，基于WASM的插件机制，基于freetype库的字体管理，基于LSP协议的编辑器整合，基于Web技术的在线编辑器，等等。通过这些技术不但降低了使用难度，也降低了开发难度。
+
+#figure(
+    image("./images/why-typst.jpg"),
+    //caption: [LaTeX衰，Typst帅#emoji.dog.face],
+    caption: [LaTeX衰，Typst帅],
+) <衰和帅>
 
 == 小结
 
@@ -395,6 +399,7 @@ _交叉引用_文本中其他部分的内容是学位论文等复杂文本的一
     #ref(<批处理软件小节>)介绍了不同批处理结构化排版软件的历史沿革。
 ]```.text)
 
+附录中标号有特殊要求，一般用“A、B、C”代替“1、2、3”。不过本模板会处理好这些细节，不用作者操心。例如：@附录公式，@附录图，@附录表。
 == 外部引用和文献管理
 
 学术写作中往往需要_大量引用他人的作品_，作为支撑材料，作为研究对象、理论基础、或者观点佐证。与内部引用相比，外部引用数量更大，管理更繁琐，是学术写作的一大痛点。幸好Typst提供了很好的支持。
@@ -448,7 +453,7 @@ _交叉引用_文本中其他部分的内容是学位论文等复杂文本的一
 附录中标号有特殊要求，一般用“A、B、C”代替“1、2、3”。不过本模板会处理好这些细节，不用作者操心。例如：
 
 #示例(```[
-    $ f(x)=integral sin(x)/cos(d) dif x $
+    $ f(x)=integral sin(x)/cos(d) dif x $ <附录公式>
 ]```.text)
 
 #示例(```[
@@ -463,7 +468,7 @@ _交叉引用_文本中其他部分的内容是学位论文等复杂文本的一
         ),
         caption: [常用排版软件和作者对照表],
         kind: table
-    )
+    ) <附录表>
 ]```.text)
 
 #示例(```[
@@ -475,7 +480,7 @@ _交叉引用_文本中其他部分的内容是学位论文等复杂文本的一
             image("../images/martin-and-laurenz.jpeg"),
         ),
         caption: [TeX的创造者Donald Knuth教授（左图）；Typst的创造者Martin Haugh和Laurenz Mädje（右图）]
-    )
+    ) <附录图>
 ]```.text)
 
 = 英文翻译
