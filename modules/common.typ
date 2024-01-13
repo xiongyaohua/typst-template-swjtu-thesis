@@ -1,3 +1,5 @@
+#let 附录开始 = state("附录开始", false)
+
 #let 字号 = (
     初号: 42pt,
     小初: 36pt,
@@ -74,27 +76,10 @@
     set text(font: 字体.宋体, size: 字号.小四, lang: "zh")
     set par(justify: true, linebreaks: "optimized")
     set underline(offset: 2pt, extent: 1pt)
+    set heading(supplement: none)
     
     show strong: set text(font: 字体.黑体)
     show emph: set text(font: 字体.楷体)
-    set math.equation(numbering: num => {
-      locate(loc => {
-        let chapter = counter(heading).at(loc).at(0)
-        [(#chapter]
-        [--]
-        [#num)]
-
-      })
-    })
-
-    set figure(numbering: num => {
-      locate(loc => {
-        let chapter = counter(heading).at(loc).at(0)
-        [#chapter]
-        [--]
-        [#num]
-      })
-    })
     show figure.where(kind: table): set figure.caption(position: top)
     show figure: set figure.caption(position: bottom)
     show figure: it => {
@@ -102,7 +87,6 @@
       par(leading: 0em, hide(text(size: 0pt)[xx])) // 保证下一段提行
     }
 
-    set heading(supplement: none)
     show heading.where(level: 1): set text(size: 字号.小二)
     show heading.where(level: 1): set align(center)
 
@@ -159,10 +143,12 @@
             
             let chapter = counter(heading).at(el.location()).at(0)
             let fig_num = fig_counter.at(el.location()).at(0)
-            
+
+            let f = if 附录开始.at(el.location()) { "A" } else { "1"}            
+
             link(el.location(), {
                 supplement
-                numbering("1", chapter)
+                numbering(f, chapter)
                 [--]
                 numbering("1", fig_num)
             })
@@ -173,11 +159,11 @@
             let chapter = counter(heading).at(el.location()).at(0)
             let eq_num = eq_counter.at(el.location()).at(0)
             
+            let f = if 附录开始.at(el.location()) { "A" } else { "1"}            
+            
             link(el.location(), {
                 supplement
-                numbering("1", chapter)
-                [--]
-                numbering("1", eq_num)
+                [ (#{numbering(f, chapter)}--#{numbering("1", eq_num)})]
             })
         }
         else {

@@ -1,4 +1,4 @@
-#import "modules/common.typ": 占位, 示例
+#import "modules/common.typ": 占位, 示例, 附录开始
 #import "modules/pages.typ": *
 
 #let 添加页眉(body) = {
@@ -37,6 +37,19 @@
             numbering("1. 1", ..nums)
         }
     })
+    set math.equation(numbering: num => {
+      locate(loc => {
+        let chapter = counter(heading).at(loc).at(0)
+        [(#{chapter}--#num)]
+      })
+    })
+
+    set figure(numbering: num => {
+      locate(loc => {
+        let chapter = counter(heading).at(loc).at(0)
+        [#{chapter}--#num]
+      })
+    })
     
     set par(first-line-indent: 2em, leading: 1em)
     set list(indent: 2em, tight: false)
@@ -46,7 +59,6 @@
     body
 }
 
-
 #let 正文结束(body) = {
     set heading(numbering: none)
 
@@ -54,6 +66,9 @@
 }
 
 #let 附录(body) = {
+    附录开始.update(true)
+    counter(heading).update(0)
+    
     set heading(numbering: (..nums) => {
         if nums.pos().len() == 1 {
             numbering("附录 A ", ..nums)
@@ -62,25 +77,20 @@
         }
     })
     
-    counter(heading).update(0)
     set math.equation(numbering: num => {
-        locate(loc => {
+      locate(loc => {
         let chapter = counter(heading).at(loc).at(0)
-        [(]
-        numbering("A", chapter)
-        [--]
-        [#num)]
+        [(#{numbering("A", chapter)}--#num)]
+      })
+    })
 
-        })
-    })
     set figure(numbering: num => {
-        locate(loc => {
-            let chapter = counter(heading).at(loc).at(0)
-            numbering("A", chapter)
-            [--]
-            [#num]
-        })
+      locate(loc => {
+        let chapter = counter(heading).at(loc).at(0)
+        [#{numbering("A", chapter)}--#num]
+      })
     })
+
     body
 }
 
