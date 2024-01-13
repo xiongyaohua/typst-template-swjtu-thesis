@@ -38,33 +38,7 @@
         }
     })
     
-    show ref: it => {
-        let el = it.element
-        if el != none and el.func() == heading {
-            it
-            if el.level == 1 []
-            else if el.level == 2 [节]
-            else [小节]
-            // Override equation references.
-            //numbering(
-            //    el.numbering,
-            //    ..counter(eq).at(el.location())
-            //)
-        } else {
-            it
-        }
-    }
-    
-    show raw.where(block: true): it => {
-        set text(font: "Noto Sans Mono CJK SC")
-        set block(fill: luma(230), width: 90%, radius: 3pt, inset:5pt)
-        set align(center)
-        it
-    }
-
     set par(first-line-indent: 2em, leading: 1em)
-    show strong: set text(font: 字体.黑体)
-    show emph: set text(font: 字体.楷体)
     set list(indent: 2em, tight: false)
     set enum(indent: 2em, tight: false)
 
