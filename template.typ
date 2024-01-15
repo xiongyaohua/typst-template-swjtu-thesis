@@ -92,7 +92,7 @@
 }
 
 #let 附录(body) = {
-    附录开始.update(true)
+    附录开始()
     counter(heading).update(0)
     
     set heading(numbering: (..nums) => {

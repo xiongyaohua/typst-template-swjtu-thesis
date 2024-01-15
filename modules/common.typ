@@ -1,4 +1,20 @@
-#let 附录开始 = state("附录开始", false)
+#let 阶段 = state("阶段", false) // 文档当前所处阶段：前文、正文、后文、附录。不同阶段有不同排版格式要求。
+
+#let 前文开始() = {
+    阶段.update("前文")
+}
+
+#let 正文开始() = {
+    阶段.update("正文")
+}
+
+#let 后文开始() = {
+    阶段.update("后文")
+}
+
+#let 附录开始() = {
+    阶段.update("附录")
+}
 
 #let 字号 = (
     初号: 42pt,
@@ -121,7 +137,7 @@
             let chapter = counter(heading).at(el.location()).at(0)
             let fig_num = fig_counter.at(el.location()).at(0)
 
-            let f = if 附录开始.at(el.location()) { "A" } else { "1"}            
+            let f = if 阶段.at(el.location()) == "附录" { "A" } else { "1"}            
 
             link(el.location(), {
                 supplement
@@ -136,7 +152,7 @@
             let chapter = counter(heading).at(el.location()).at(0)
             let eq_num = eq_counter.at(el.location()).at(0)
             
-            let f = if 附录开始.at(el.location()) { "A" } else { "1"}            
+            let f = if 阶段.at(el.location()) == "附录" { "A" } else { "1"}            
             
             link(el.location(), {
                 supplement
