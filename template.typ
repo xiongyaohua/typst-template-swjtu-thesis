@@ -1,4 +1,4 @@
-#import "modules/common.typ": 占位, 附录开始
+#import "modules/common.typ": 占位, 正文开始, 结论开始, 附录开始
 #import "modules/pages.typ": *
 
 // 生成源码和排版结果对照
@@ -48,7 +48,8 @@
     body
 }
 
-#let 正文开始(body) = {
+#let 正文(body) = {
+    正文开始()
     set page(footer: [
         #set align(center)
         #counter(page).display(
@@ -85,7 +86,8 @@
     body
 }
 
-#let 正文结束(body) = {
+#let 结论(body) = {
+    结论开始()
     set heading(numbering: none)
 
     body
@@ -234,6 +236,6 @@
         pagebreak(weak: true)
     }
 
-    show: 正文开始
+    show: 正文
     body
 }
