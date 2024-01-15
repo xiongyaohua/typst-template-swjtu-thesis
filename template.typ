@@ -207,7 +207,6 @@
             信息.named().英文摘要
         )
 
-
         show outline.entry: it => {
             let font = 字体.宋体
             if it.level == 1 {
