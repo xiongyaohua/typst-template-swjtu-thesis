@@ -59,7 +59,7 @@ Typst是一种新锐结构化文档排版工具，可用于复杂结构化文档
 @吉祥物[]是该项目的吉祥物：字母怪兽，根据名字的首字母“t”设计。本文主要有两个目的，一是作为文档简要介绍用Typst排版本科毕业论文的方法；二是_本文自身用Typst排版_，可以作为案例证明Typst排版的有效性、易用性。文本源代码可访问#link("https://github.com/xiongyaohua/typst-template-swjtu-thesis")获取。
 
 #figure(image(
-    "./images/typst-logo.jpg",
+    "images/typst-logo.jpg",
     width: 40%
     ),
     caption: [Typst项目吉祥物] 
@@ -288,7 +288,7 @@ $ f(x)=integral sin(x)/cos(d) dif x $
     #h(2em)Typst项目根据名字的首字母“t”，设计了该项目的吉祥物：字母怪兽t。
 
     #image(
-        "../images/typst-logo.jpg",
+        "images/typst-logo.jpg",
         width: 80%
     )
 ]```.text)
@@ -339,9 +339,9 @@ cout << a;
     #figure(
         grid(
             columns: (1fr, 1fr), column-gutter: 4pt,
-            image("../images/knuth.jpeg"),
+            image("images/knuth.jpeg"),
             image(
-                "../images/martin-and-laurenz.jpeg"
+                "images/martin-and-laurenz.jpeg"
             ),
         ),
         caption: [TeX的创造者Donald Knuth教授（左图）；Typst的创造者Martin Haugh和Laurenz Mädje（右图）]
@@ -481,8 +481,8 @@ _交叉引用_文本中其他部分的内容是学位论文等复杂文本的一
         grid(
             columns: (1fr, 1fr),
             column-gutter: 4pt,
-            image("../images/knuth.jpeg"),
-            image("../images/martin-and-laurenz.jpeg"),
+            image("images/knuth.jpeg"),
+            image("images/martin-and-laurenz.jpeg"),
         ),
         caption: [TeX的创造者Donald Knuth教授（左图）；Typst的创造者Martin Haugh和Laurenz Mädje（右图）]
     ) <附录图>

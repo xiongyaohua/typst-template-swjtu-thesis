@@ -1,5 +1,31 @@
-#import "modules/common.typ": 占位, 示例, 附录开始
+#import "modules/common.typ": 占位, 附录开始
 #import "modules/pages.typ": *
+
+// 生成源码和排版结果对照
+//
+// 应该放在顶层目录中，样例中的image函数才能直接访问images目录。
+#let 示例(code) = {
+    set heading(outlined: false, numbering: none)
+    show heading: it => {
+      set text(font: 字体.黑体)
+      block[
+        #it.body
+      ]
+    }
+    show raw.where(block: true): it => {
+      set block(width: 100%)
+      it
+    }
+    show figure: set block(breakable: false)
+    //show table: set block(breakable: true)
+    figure(numbering: none, table(
+        columns: (1fr,1fr), align: left,
+        [#h(1fr)源码#h(1fr)], [#h(1fr)排版结果#h(1fr)],
+        box(width: 100%, raw(code, lang: "typ", block: true)),
+        eval(code)
+    ))
+    par(leading: 0em, hide(text(size: 0pt)[xx])) // 保证下一段提行
+}
 
 #let 添加页眉(body) = {
     set page(
