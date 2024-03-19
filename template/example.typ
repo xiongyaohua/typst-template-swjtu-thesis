@@ -1,4 +1,4 @@
-#import "template.typ": *
+#import "/lib.typ": *
 
 /// 开始论文写作
 /// 
@@ -59,7 +59,7 @@ Typst是一种新锐结构化文档排版工具，可用于复杂结构化文档
 @吉祥物[]是该项目的吉祥物：字母怪兽，根据名字的首字母“t”设计。本文主要有两个目的，一是作为文档简要介绍用Typst排版本科毕业论文的方法；二是_本文自身用Typst排版_，可以作为案例证明Typst排版的有效性、易用性。文本源代码可访问#link("https://github.com/xiongyaohua/typst-template-swjtu-thesis")获取。
 
 #figure(image(
-    "images/typst-logo.jpg",
+    "/images/typst-logo.jpg",
     width: 40%
     ),
     caption: [Typst项目吉祥物] 
@@ -143,7 +143,7 @@ Typst相对TeX的优势可以风趣的总结为@衰和帅，具体而言包括�
 - Typst开发中采用当前最新的软件技术与工具。例如用Rust语言开发，基于WASM的插件机制，基于freetype库的字体管理，基于LSP协议的编辑器整合，基于Web技术的在线编辑器，等等。通过这些技术不但降低了使用难度，也降低了开发难度。
 
 #figure(
-    image("./images/why-typst.jpg"),
+    image("/images/why-typst.jpg"),
     //caption: [LaTeX衰，Typst帅#emoji.dog.face],
     caption: [LaTeX衰，Typst帅],
 ) <衰和帅>
@@ -450,7 +450,7 @@ _交叉引用_文本中其他部分的内容是学位论文等复杂文本的一
 
 感谢Donald Knuth教授奠定了结构化排版的理论基础，实现了早期的可用系统TeX；感谢Leslie Lamport博士在TeX基础上开发了LaTeX，增强了易用性，推动结构化排版在学术界的广泛应用；最后感谢Martin Haugh和Laurenz Mädje两位的出色工作，继承TeX/LaTeX的精神，融合现代软件工程技术，开发出Typst这一优秀的结构化排版系统，让本文成文可能。
 
-#bibliography("references/reference.bib", style: "./references/china-national-standard-gb-t-7714-2015-numeric.csl") <参考文献>
+#bibliography("/references/reference.bib", style: "/references/china-national-standard-gb-t-7714-2015-numeric.csl") <参考文献>
 
 #show: 附录
 
