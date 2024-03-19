@@ -1,0 +1,12 @@
+[package]
+name = "locomonk-swjtu"
+version = "0.1.0"
+entrypoint = "lib.typ"
+authors = ["Yaohua Xiong"]
+license = "MIT"
+description = "The Typst template for bachelor thesis of Southwest Jiaotong University."
+
+[template]
+path = "template"
+entrypoint = "main.typ"
+thumbnail = "thumbnail.png"
